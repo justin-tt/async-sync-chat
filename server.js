@@ -64,11 +64,16 @@ const start = async() => {
       // publish some stuff to all subscribers
       const msg = request.payload.msg;
       console.log(`chat/post ${msg}`);
+      console.log(server.chatters);
       server.publish('/chat', { msg: msg });
-
       return h.response(request.payload.n).code(202);
     }
   })
+  /// APP GOES HERE? APP VARIABLES?
+  server.chatters = [];
+  server.currentChatter = "";
+  /// how to find a list of the nes/websocket subscribers?
+  /// may need to use socket io instead T_T
   await server.start();
   console.log(`Server running at: ${server.info.uri}`);
 
